@@ -1,23 +1,16 @@
 #!/bin/bash
 
+docker exec -it 8bcff95d78f9 /bin/bash
+
+influx -username miniproject1_user -password miniproject1_pass 
 ## installing docker
-sudo yum update
-sudo yum search docker
-sudo yum info docker
-sudo yum install docker
-sudo usermod -a -G docker ec2-user
-id ec2-user
-newgrp docker
+INSERT temperature,place=testbed_sensor1 value=25.5
 
-sudo yum install python3-pip
-pip3 install --user docker-compose
+docker compose build --no-cache
 
+docker exec server-coap_server-1 cat /etc/hosts
+docker inspect server-coap_server-1
+docker exec -it server-coap_server-1 /bin/bash
 
-sudo systemctl enable docker.service
-sudo systemctl start docker.service
-sudo systemctl status docker.service
-
-#sudo systemctl start docker.service #<-- start the service
-#sudo systemctl stop docker.service #<-- stop the service
-#sudo systemctl restart docker.service #<-- restart the service
-#sudo systemctl status docker.service #<-- get the service status
+docker stop server-coap_server-1
+docker container prune

@@ -10,6 +10,13 @@ def client():
     client.switch_database(DATABASE)
     return client
 
+def getInfluxDB(query, measurement='temperature'):
+    db_client = client()
+    result = db_client.query(query=query)
+    output = []
+    for key, value in enumerate(result):
+        output.append(value)  
+    return output
 
 def save(db_client, measurement, fields, tags=None):
     json_body = [{'measurement': measurement, 'tags': tags, 'fields': fields}]
@@ -22,7 +29,7 @@ def send_influxdb(data, measurement='temperature'):
         tags        = { "place": PLACE }
         fields      = { "value" : data }
         save(db_client, measurement, fields, tags=tags)
-        time.sleep(0.5)
+        # time.sleep(0.1)
         
     else:
         print("Positional argument (measurement) required!")

@@ -56,7 +56,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_iotdb}"
+        "uid": "ds_influxdb"
       },
       "description": "Temperature of Testbed sensor",
       "fieldConfig": {
