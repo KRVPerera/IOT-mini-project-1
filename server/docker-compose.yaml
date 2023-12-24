@@ -25,7 +25,11 @@ services:
   coap_server:
     image: coap_server
     ports:
-    - "5683:5683"
+     - "5683:5683"
+     - target: 5683
+       published: 5683
+       protocol: udp
+       mode: bridge
     depends_on:
     - influxdb
     build:

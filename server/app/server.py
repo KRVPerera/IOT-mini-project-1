@@ -2,6 +2,7 @@
 
 import logging
 import asyncio
+
 from aiocoap import *
 
 import aiocoap.resource as resource
@@ -32,8 +33,9 @@ async def main():
         root.add_resource(['.well-known', 'core'],
                 resource.WKCResource(root.get_resources_as_linkheader))
         root.add_resource(['temp'], temperature())
-        await aiocoap.Context.create_server_context(bind=('127.0.0.1',5683),site=root)
+        await aiocoap.Context.create_server_context(site=root, bind=('::', 5683))
         await asyncio.get_running_loop().create_future()
+
     except Exception as e:
         logging.error(f"Error in starting server: {e}")
 
