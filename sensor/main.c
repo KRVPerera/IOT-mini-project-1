@@ -71,8 +71,7 @@ int main(void)
     int16_t temp = 0;
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
       char str[20];
-      float tempF = (float)temp/100.0;
-      sprintf(str, "%f", tempF);
+      sprintf(str, "%d", temp);
       printf("The number as a string is: %s\n", str);
       // gcoap_post(str, TEMP);
       gcoap_cli_cmd(coap_command_c, coap_command);
