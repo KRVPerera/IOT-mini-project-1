@@ -62,7 +62,7 @@ int main(void)
     coap_command[i++] = "coap";
     coap_command[i++] = "get";
     // coap_command[i++] = "-c";
-    coap_command[i++] = "2600:1f16:15a8:3b2:804b:8136:56a6:cb5b";
+    coap_command[i++] = "2600:1f16:15a8:3d9:6df4:e087:ae99:27cc";
     coap_command[i++] = "5683";
     coap_command[i++] = "/.well-known/core";
     // coap_command[5] = "/temp";
@@ -75,17 +75,17 @@ int main(void)
     msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
     ztimer_sleep(ZTIMER_MSEC, 1000);
 
-  // while (1) {
+  while (1) {
     
-  //   int16_t temp = 0;
-  //   if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
-  //     sprintf(temp_str, "%d", temp);
-  //     printf("The number as a string is: %s\n", coap_command[coap_command_c-1]);
-  //     // gcoap_post(str, TEMP);
-  //     gcoap_cli_cmd(coap_command_c, coap_command);
-  //   }
-  //   ztimer_sleep(ZTIMER_MSEC, 5000);
-  // }
+    int16_t temp = 0;
+    if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
+      sprintf(temp_str, "%d", temp);
+      printf("The number as a string is: %s\n", coap_command[coap_command_c-1]);
+      // gcoap_post(str, TEMP);
+      gcoap_cli_cmd(coap_command_c, coap_command);
+    }
+    ztimer_sleep(ZTIMER_MSEC, 5000);
+  }
 
 
   puts("All up, running the shell now");
