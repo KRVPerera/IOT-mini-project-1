@@ -20,7 +20,7 @@ echo "Array Contents: ${mynodes[*]}"
 iotlab-node --flash gnrc_border_router.elf -l "grenoble,m3,${mynodes[0]}"
 iotlab-node --flash sensor.elf -l "grenoble,m3,${mynodes[1]}"
 
-
-sudo ethos_uhcpd.py m3-${mynodes[0]} tap13 2001:660:5307:3113::1/64
+echo "nc m3-2 20000"
+sudo ethos_uhcpd.py m3-${mynodes[0]} tap9 2001:660:5307:3113::1/64
 echo "Script ended."
 iotlab-experiment stop -i ${ID}

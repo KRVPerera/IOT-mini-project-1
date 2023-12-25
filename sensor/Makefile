@@ -22,9 +22,28 @@ USEMODULE += gnrc_icmpv6_error
 # Additional networking modules that can be dropped if not needed
 USEMODULE += gnrc_icmpv6_echo
 
+USEMODULE += gnrc_icmpv6_error
+# Specify the mandatory networking module for a IPv6 routing node
+USEMODULE += gnrc_ipv6_router_default
+# Add a routing protocol
+USEMODULE += gnrc_rpl
+USEMODULE += auto_init_gnrc_rpl
+
+USEMODULE += gnrc_icmpv6_error
+# Specify the mandatory networking modules for IPv6 and UDP
+USEMODULE += gnrc_ipv6_router_default
+USEMODULE += gnrc_udp
+
+USEMODULE += shell_commands
+USEMODULE += netstats_l2
+USEMODULE += netstats_ipv6
+USEMODULE += netstats_rpl
+
 # use GNRC by default
 LWIP_IPV4 ?= 0
 LWIP_IPV6 ?= 0
+
+CFLAGS += -Wno-unused-but-set-variable -Wno-unused-parameter
 
 ifeq (,$(filter 1, $(LWIP_IPV4) $(LWIP_IPV6)))
   USEMODULE += auto_init_gnrc_netif
@@ -58,7 +77,15 @@ USEMODULE += gcoap
 USEMODULE += od
 USEMODULE += fmt
 USEMODULE += shell
+USEMODULE += netstats_ipv6
 USEMODULE += ps
+
+USEMODULE += random
+
+
+
+
+# Add also the shell, some shell commands
 
 # Comment this out to disable code in RIOT that does safety checking
 # which is not needed in a production environment but helps in the

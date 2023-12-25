@@ -25,16 +25,14 @@ void temp_sensor_reset(const lpsxxx_t *dev)
 {
   if (lpsxxx_init(&lpsxxx, &lpsxxx_params[0]) != LPSXXX_OK)
   {
-    puts("FAILED");
-    return;
+    puts("sensor init FAILED");
   }
-  ztimer_sleep(ZTIMER_MSEC, 1000);
+  ztimer_sleep(ZTIMER_MSEC, 3000);
   i2c_acquire(dev->params.i2c);
   if (i2c_write_reg(dev->params.i2c, dev->params.addr, 0x21, 0x44, 0) < 0)
   {
     i2c_release(dev->params.i2c);
-    puts("FAILED");
-    return;
+    puts("sensor reset FAILED");
   }
   i2c_release(dev->params.i2c);
 
@@ -56,28 +54,38 @@ static const shell_command_t shell_commands[] = {
 int main(void)
 {
 
-    char *coap_command[3];
-    coap_command[0] = "coap";
-    coap_command[1] = "info";
-    coap_command[0] = "";
-    int coap_command_c = 3;
+  ztimer_sleep(ZTIMER_MSEC, 3000);
+    int coap_command_c = 7;
+    char *coap_command[coap_command_c];
+    int i;
+    i = 0;
+    coap_command[i++] = "coap";
+    coap_command[i++] = "get";
+    // coap_command[i++] = "-c";
+    coap_command[i++] = "2600:1f16:15a8:3b2:804b:8136:56a6:cb5b";
+    coap_command[i++] = "5683";
+    coap_command[i++] = "/.well-known/core";
+    // coap_command[5] = "/temp";
+    char temp_str[20];  // Allocate memory for the temperature string
+    coap_command[i++] = temp_str;
 
-  temp_sensor_reset(&lpsxxx);
-  msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
+    coap_command_c = i;
+
+        temp_sensor_reset(&lpsxxx);
+    msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
     ztimer_sleep(ZTIMER_MSEC, 1000);
 
-  while (1) {
+  // while (1) {
     
-    int16_t temp = 0;
-    if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
-      char str[20];
-      sprintf(str, "%d", temp);
-      printf("The number as a string is: %s\n", str);
-      // gcoap_post(str, TEMP);
-      gcoap_cli_cmd(coap_command_c, coap_command);
-    }
-    ztimer_sleep(ZTIMER_MSEC, 5000);
-  }
+  //   int16_t temp = 0;
+  //   if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
+  //     sprintf(temp_str, "%d", temp);
+  //     printf("The number as a string is: %s\n", coap_command[coap_command_c-1]);
+  //     // gcoap_post(str, TEMP);
+  //     gcoap_cli_cmd(coap_command_c, coap_command);
+  //   }
+  //   ztimer_sleep(ZTIMER_MSEC, 5000);
+  // }
 
 
   puts("All up, running the shell now");
