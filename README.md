@@ -37,7 +37,9 @@
         docker compose up --build -d
 
   - grafana dashboard and data influxdb are already setup via docker compose
-
+  - Use `http://instanece_address_public_ip4:3000` from your brower to access grafana
+  - default user name and password is `admin`
+  - Choose the `Temperature` dashboard
 
 ### Testbed
 - Get ssh access to frontend
@@ -51,3 +53,6 @@
 - Then run `all.sh`
     - This builds the sensor code with new ip address
     - Star the border router (already built)
+
+- After building one time you can run
+    `start.sh`
