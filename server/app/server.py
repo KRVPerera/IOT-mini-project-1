@@ -17,7 +17,7 @@ class temperature(resource.Resource):
         try:
             if request.code.is_request() and request.code == POST:
                 payload = request.payload.decode('utf8')
-                send_influxdb(float(payload))
+                send_influxdb(float(payload)/100.0)
                 logging.debug(f"Data received and sent to InfluxDB: {payload}")
                 return Message(code=CONTENT, payload=b'Data added to InfluxDB')
             
