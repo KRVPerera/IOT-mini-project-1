@@ -63,3 +63,6 @@
 
 #### Saclay
 - Repeat as same as Grenoble but change the scripts to `all_saclay.sh` and `start_saclay.sh`
+
+#### Public IP address related to each site already added to each star file at the end
+Refer : [ipv6](https://www.iot-lab.info/docs/getting-started/ipv6/)
