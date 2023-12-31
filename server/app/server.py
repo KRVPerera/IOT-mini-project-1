@@ -13,19 +13,10 @@ import asyncio
 
 from database import send_influxdb
 
-# Set the log file path
-log_file = '/var/log/mini_project_2.log'
-
-# Configure logging to write to the file
-logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-# Rest of your code...
-
-
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# Set up logging to a file
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', filename='logfile.log')
 
 from database import send_influxdb
-
 
 MAX_DATA_POINTS = 100
 INDEX=0
