@@ -25,7 +25,7 @@ def save(db_client, measurement, fields, tags=None):
 
 def send_influxdb(data, place, measurement='temperature'):
     db_client = client()
-    if measurement == 'temperature' or measurement == 'humidity':
+    if measurement == 'temperature':
         tags        = { "place": place }
         fields      = { "value" : data }
         save(db_client, measurement, fields, tags=tags)

@@ -22,6 +22,6 @@ iotlab-node --flash gnrc_border_router.elf -l "saclay,m3,${mynodes[0]}" -i "${ID
 iotlab-node --flash firmware/sensor_saclay.elf -l "saclay,m3,${mynodes[1]}" -i "${ID}"
 
 echo "nc m3-2 20000"
-sudo ethos_uhcpd.py m3-${mynodes[0]} tap9 2001:660:3207:04c5::1/64
+sudo ethos_uhcpd.py m3-${mynodes[0]} tap9 2001:660:4403:0489::1/64
 echo "Script ended."
 iotlab-experiment stop -i ${ID}
