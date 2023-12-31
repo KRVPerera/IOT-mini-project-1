@@ -19,16 +19,18 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 from database import send_influxdb
 
 MAX_DATA_POINTS = 100
-INDEX=0
-data_values_grenoble = [0]*MAX_DATA_POINTS
-data_values_strasbourg = [0]*MAX_DATA_POINTS
-data_values_saclay = [0]*MAX_DATA_POINTS
 
 class temperature(resource.Resource):
+
+    def __init__(self):
+        self.site_data = {
+            'grenoble': {'values': [0] * MAX_DATA_POINTS, 'index': 0},
+            'strasbourg': {'values': [0] * MAX_DATA_POINTS, 'index': 0},
+            'saclay': {'values': [0] * MAX_DATA_POINTS, 'index': 0},
+            'lillie': {'values': [0] * MAX_DATA_POINTS, 'index': 0}
+        }
+
     async def render_post(self, request):
-        global data_values
-        global data_values
-        global data_values
         global INDEX
         global MAX_DATA_POINTS
         try:
@@ -36,19 +38,13 @@ class temperature(resource.Resource):
                 payload = request.payload.decode('utf8')
                 site,value_temp = payload.split(',')
 
-                if site == 'grenoble':
-                    data_values = data_values_grenoble
-                elif site == 'strasbourg':
-                    data_values = data_values_strasbourg
-                elif site == 'saclay':
-                    data_values = data_values_saclay
-
                 value = float(value_temp)
                 logging.debug(f"Value received: {value}")
-                data_values[INDEX] = value
-                INDEX = (INDEX+1)%MAX_DATA_POINTS
+                self.site_data[site]['values'][self.site_data[site]['index']] = value
+                self.site_data[site]['index'] = (self.site_data[site]['index'] + 1) % MAX_DATA_POINTS
 
-                sum_value = sum(data_values)
+                sum_value = 0.0
+                sum_value = sum(self.site_data[site])
                 logging.debug(f"Sum: {sum_value}")
                 avg = sum_value*1.0/MAX_DATA_POINTS
                 logging.debug(f"Avg: {avg}")
