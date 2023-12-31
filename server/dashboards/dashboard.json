@@ -780,7 +780,7 @@
       ],
       "title": "Temperature of Testbed saclay",
       "type": "timeseries"
-    },
+    }
   ],
   "refresh": "5s",
   "schemaVersion": 38,
