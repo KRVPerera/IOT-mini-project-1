@@ -20,10 +20,14 @@ from database import send_influxdb
 
 MAX_DATA_POINTS = 100
 INDEX=0
-data_values = [0]*MAX_DATA_POINTS
+data_values_grenoble = [0]*MAX_DATA_POINTS
+data_values_strasbourg = [0]*MAX_DATA_POINTS
+data_values_saclay = [0]*MAX_DATA_POINTS
 
 class temperature(resource.Resource):
     async def render_post(self, request):
+        global data_values
+        global data_values
         global data_values
         global INDEX
         global MAX_DATA_POINTS
@@ -31,6 +35,14 @@ class temperature(resource.Resource):
             if request.code.is_request() and request.code == POST:
                 payload = request.payload.decode('utf8')
                 site,value_temp = payload.split(',')
+
+                if site == 'grenoble':
+                    data_values = data_values_grenoble
+                elif site == 'strasbourg':
+                    data_values = data_values_strasbourg
+                elif site == 'saclay':
+                    data_values = data_values_saclay
+
                 value = float(value_temp)
                 logging.debug(f"Value received: {value}")
                 data_values[INDEX] = value
