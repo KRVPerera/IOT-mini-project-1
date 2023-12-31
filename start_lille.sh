@@ -9,7 +9,7 @@ ID=$(echo $RES | jq '.id')
 iotlab-experiment wait --timeout 120 --cancel-on-timeout -i "${ID}" --state Running
 RES=$(iotlab-experiment get -i ${ID} -p)
 declare -a mynodes
-for (( i=0; i<2; i++ )); do
+for (( i=0; i<3; i++ )); do
     node=$(echo "$RES" | jq -r ".nodes[$i]")
     number=$(echo "$node" | cut -d'-' -f2 | cut -d'.' -f1)
     mynodes+=( "$number" )
