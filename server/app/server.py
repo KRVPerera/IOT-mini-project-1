@@ -30,7 +30,8 @@ class temperature(resource.Resource):
         try:
             if request.code.is_request() and request.code == POST:
                 payload = request.payload.decode('utf8')
-                value = float(payload)
+                site,value_temp = payload.split(',')
+                value = float(value_temp)
                 logging.debug(f"Value received: {value}")
                 data_values[INDEX] = value
                 INDEX = (INDEX+1)%MAX_DATA_POINTS
