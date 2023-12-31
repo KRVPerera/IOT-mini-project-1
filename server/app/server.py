@@ -50,6 +50,9 @@ class temperature(resource.Resource):
                 
                 self.logger.debug(f"Value received: {value}")
                 self.site_data[site]['values'][self.site_data[site]['index']] = value
+
+                logging.debug(f"Index: {self.site_data[site]['index']}")
+                
                 self.site_data[site]['index'] = (self.site_data[site]['index'] + 1) % MAX_DATA_POINTS
 
                 sum_value = 0.0
