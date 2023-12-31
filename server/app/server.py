@@ -29,6 +29,7 @@ class temperature(resource.Resource):
             'saclay': {'values': [0] * MAX_DATA_POINTS, 'index': 0},
             'lillie': {'values': [0] * MAX_DATA_POINTS, 'index': 0}
         }
+        self.logger = logging.getLogger("temperature")
 
     async def render_post(self, request):
         global INDEX
@@ -39,23 +40,23 @@ class temperature(resource.Resource):
                 site,value_temp = payload.split(',')
 
                 value = float(value_temp)
-                logging.debug(f"Value received: {value}")
+                self.logger.debug(f"Value received: {value}")
                 self.site_data[site]['values'][self.site_data[site]['index']] = value
                 self.site_data[site]['index'] = (self.site_data[site]['index'] + 1) % MAX_DATA_POINTS
 
                 sum_value = 0.0
                 sum_value = sum(self.site_data[site])
-                logging.debug(f"Sum: {sum_value}")
+                self.logger.debug(f"Sum: {sum_value}")
                 avg = sum_value*1.0/MAX_DATA_POINTS
-                logging.debug(f"Avg: {avg}")
+                self.logger.debug(f"Avg: {avg}")
                 send_influxdb(avg/100.0, site)
-                logging.debug(f"Data received and sent to InfluxDB: {payload}")
+                self.logger.debug(f"Data received and sent to InfluxDB: {payload}")
                 return Message(code=CONTENT, payload=b'Data added to InfluxDB')
             
-            logging.warning("Bad request received")
+            self.logger.warning("Bad request received")
             return Message(code=BAD_REQUEST)
         except Exception as e:
-            logging.error(f"Error in processing request: {e}")
+            self.logger.error(f"Error in processing request: {e}")
             return Message(code=INTERNAL_SERVER_ERROR)
 
 async def main():
