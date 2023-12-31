@@ -18,7 +18,7 @@
 #include "net/gcoap.h"
 #include "shell.h"
 #include "ztimer.h"
-#include "noise_g en.h"
+#include "noise_gen.h"
 
 static lpsxxx_t lpsxxx;
 
@@ -100,7 +100,7 @@ int main(void)
       // gcoap_post(str, TEMP);
       gcoap_cli_cmd(coap_command_c, coap_command);
     }
-    ztimer_sleep(ZTIMER_MSEC, 5000);
+    ztimer_sleep(ZTIMER_MSEC, 200);
   }
 
   return 0;
