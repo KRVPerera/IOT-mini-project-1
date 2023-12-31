@@ -38,34 +38,13 @@ class temperature(resource.Resource):
             if request.code.is_request() and request.code == POST:
                 payload = request.payload.decode('utf8')
                 site,value_temp = payload.split(',')
-
-                self.logger.debug(f"Site: {site}")
-                self.logger.debug(f"Value: {value_temp}")
-
-                try:
-                    value = float(value_temp)
-                except ValueError:
-                    self.logger.error(f"Invalid temperature value received: {value_temp}")
-                    return Message(code=BAD_REQUEST)
-                
-                self.logger.debug(f"Value received: {value}")
+                value = float(value_temp)
                 self.site_data[site]['values'][self.site_data[site]['index']] = value
-
-                self.logger.debug(f"Index: {self.site_data[site]['index']}")
-
                 self.site_data[site]['index'] = (self.site_data[site]['index'] + 1) % MAX_DATA_POINTS
-
-                self.logger.debug(f"Index: {self.site_data[site]['index']}")
-
-                sum_value = 0.0
                 sum_value = sum(self.site_data[site]['values'])
-                self.logger.debug(f"Sum: {sum_value}")
                 avg = sum_value*1.0/MAX_DATA_POINTS
-                self.logger.debug(f"Avg: {avg}")
                 send_influxdb(avg/100.0, site)
-                self.logger.debug(f"Data received and sent to InfluxDB: {payload}")
                 return Message(code=CONTENT, payload=b'Data added to InfluxDB')
-            
             self.logger.warning("Bad request received")
             return Message(code=BAD_REQUEST)
         except Exception as e:
