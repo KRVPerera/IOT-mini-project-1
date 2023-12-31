@@ -1,13 +1,5 @@
 #!/bin/bash
 
-source /opt/riot.source
-git clone https://github.com/RIOT-OS/RIOT.git -b 2020.10-branch
-
-cd sensor_strasbourg
-make DEFAULT_CHANNEL=14
-cp bin/iotlab-m3/sensor.elf ../firmware/sensor_strasbourg.elf
-cd ..
-
 # schdeule two m3 nodes
 # got help from discord channel for the subject
 RES=$(iotlab-experiment submit -n project-2 -d 480 -l 2,archi=m3:at86rf231+site=strasbourg)
