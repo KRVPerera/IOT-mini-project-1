@@ -51,8 +51,13 @@ class temperature(resource.Resource):
                 self.logger.debug(f"Value received: {value}")
                 self.site_data[site]['values'][self.site_data[site]['index']] = value
 
-                logging.debug(f"Index: {self.site_data[site]['index']}")
-                
+                self.logger.debug(f"Index: {self.site_data[site]['index']}")
+
+                if isinstance(self.site_data[site]['index'], int):
+                    self.logger.debug("Index is an integer")
+                else:
+                    self.logger.debug("Index is not an integer")
+
                 self.site_data[site]['index'] = (self.site_data[site]['index'] + 1) % MAX_DATA_POINTS
 
                 sum_value = 0.0
