@@ -39,7 +39,15 @@ class temperature(resource.Resource):
                 payload = request.payload.decode('utf8')
                 site,value_temp = payload.split(',')
 
-                value = float(value_temp)
+                self.logger.debug(f"Site: {site}")
+                self.logger.debug(f"Value: {value_temp}")
+
+                try:
+                    value = float(value_temp)
+                except ValueError:
+                    self.logger.error(f"Invalid temperature value received: {value_temp}")
+                    return Message(code=BAD_REQUEST)
+                
                 self.logger.debug(f"Value received: {value}")
                 self.site_data[site]['values'][self.site_data[site]['index']] = value
                 self.site_data[site]['index'] = (self.site_data[site]['index'] + 1) % MAX_DATA_POINTS
