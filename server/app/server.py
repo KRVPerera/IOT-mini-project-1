@@ -40,7 +40,7 @@ class temperature(resource.Resource):
                 logging.debug(f"Sum: {sum_value}")
                 avg = sum_value*1.0/MAX_DATA_POINTS
                 logging.debug(f"Avg: {avg}")
-                send_influxdb(avg/100.0)
+                send_influxdb(avg/100.0, site)
                 logging.debug(f"Data received and sent to InfluxDB: {payload}")
                 return Message(code=CONTENT, payload=b'Data added to InfluxDB')
             

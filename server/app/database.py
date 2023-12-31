@@ -23,10 +23,10 @@ def save(db_client, measurement, fields, tags=None):
     db_client.write_points(json_body)
 
 
-def send_influxdb(data, measurement='temperature'):
+def send_influxdb(data, place, measurement='temperature'):
     db_client = client()
     if measurement == 'temperature' or measurement == 'humidity':
-        tags        = { "place": PLACE }
+        tags        = { "place": place }
         fields      = { "value" : data }
         save(db_client, measurement, fields, tags=tags)
         # time.sleep(0.1)
