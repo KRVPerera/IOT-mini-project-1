@@ -591,12 +591,12 @@
                 {
                   "key": "place::tag",
                   "operator": "=",
-                  "value": "saclay"
+                  "value": "lille"
                 }
               ]
             }
           ],
-          "title": "Temperature of Testbed saclay",
+          "title": "Temperature of Testbed lille",
           "type": "timeseries"
         }
   ],
