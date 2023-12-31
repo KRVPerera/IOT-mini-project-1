@@ -62,6 +62,7 @@ extern void gcoap_cli_init(void);
 // static const shell_command_t shell_commands[] = {
 //     {"coap", "CoAP example", gcoap_cli_cmd},
 //     {NULL, NULL, NULL}};
+#define SITE "grenoble"
 
 int main(void)
 {
@@ -95,7 +96,8 @@ int main(void)
     {
 
       int16_t real_temperature = temp + (int16_t)add_noise(STD_DEV);
-      sprintf(temp_str, "%d", real_temperature);
+
+      sprintf(temp_str, "%s,%d", SITE, real_temperature);
       printf("The number as a string is: %s\n", coap_command[coap_command_c - 1]);
       // gcoap_post(str, TEMP);
       gcoap_cli_cmd(coap_command_c, coap_command);
