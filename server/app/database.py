@@ -28,8 +28,8 @@ def send_influxdb(data, place, measurement='temperature'):
     if measurement == 'temperature':
         tags        = { "place": place }
         fields      = { "value" : data }
-        save(db_client, measurement, fields, tags=tags)
-        # time.sleep(0.1)
+        save(db_client, place, fields, tags=tags)
+        time.sleep(0.1)
         
     else:
         print("Positional argument (measurement) required!")
