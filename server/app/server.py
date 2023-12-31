@@ -8,12 +8,24 @@ from aiocoap import *
 import aiocoap.resource as resource
 import aiocoap
 
+import logging
+import asyncio
+
+from database import send_influxdb
+
+# Set the log file path
+log_file = '/var/log/mini_project_2.log'
+
+# Configure logging to write to the file
+logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# Rest of your code...
+
+
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 from database import send_influxdb
-import logging
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 MAX_DATA_POINTS = 100
 INDEX=0
