@@ -2,7 +2,7 @@
 
 # schdeule two m3 nodes
 # got help from discord channel for the subject
-RES=$(iotlab-experiment submit -n project-2 -d 480 -l 2,archi=m3:at86rf231+site=saclay)
+RES=$(iotlab-experiment submit -n project-2 -d 480 -l 2,archi=m3:at86rf231+site=lille)
 ID=$(echo $RES | jq '.id')
 
 # wait for nodes to start
@@ -18,8 +18,8 @@ done
 
 echo "Array Contents: ${mynodes[*]}"
 
-iotlab-node --flash gnrc_border_router.elf -l "saclay,m3,${mynodes[0]}" -i "${ID}"
-iotlab-node --flash firmware/sensor_saclay.elf -l "saclay,m3,${mynodes[1]}" -i "${ID}"
+iotlab-node --flash gnrc_border_router.elf -l "lille,m3,${mynodes[0]}" -i "${ID}"
+iotlab-node --flash firmware/sensor_lille.elf -l "lille,m3,${mynodes[1]}" -i "${ID}"
 
 echo "nc m3-2 20000"
 sudo ethos_uhcpd.py m3-${mynodes[0]} tap9 2001:660:4403:0489::1/64
