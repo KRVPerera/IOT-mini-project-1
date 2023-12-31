@@ -39,7 +39,7 @@
           "uid": "-- Grafana --"
         },
         "enable": true,
-        "hide": true,
+        "hide": false,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
@@ -340,7 +340,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 1,
+      "id": 2,
       "options": {
         "legend": {
           "calcs": [
@@ -522,7 +522,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 1,
+      "id": 3,
       "options": {
         "legend": {
           "calcs": [
@@ -604,7 +604,7 @@
         "type": "influxdb",
         "uid": "ds_influxdb"
       },
-      "description": "Temperature of Testbed sensor Grenoble",
+      "description": "Temperature of Testbed sensor saclay",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -704,7 +704,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 1,
+      "id": 4,
       "options": {
         "legend": {
           "calcs": [
