@@ -18,8 +18,8 @@ done
 
 echo "Array Contents: ${mynodes[*]}"
 
-iotlab-node --flash gnrc_border_router.elf -l "grenoble,m3,${mynodes[0]}" -i "${ID}"
-iotlab-node --flash firmware/sensor_saclay.elf -l "grenoble,m3,${mynodes[1]}" -i "${ID}"
+iotlab-node --flash gnrc_border_router.elf -l "saclay,m3,${mynodes[0]}" -i "${ID}"
+iotlab-node --flash firmware/sensor_saclay.elf -l "saclay,m3,${mynodes[1]}" -i "${ID}"
 
 echo "nc m3-2 20000"
 sudo ethos_uhcpd.py m3-${mynodes[0]} tap9 2001:660:3207:04c5::1/64
