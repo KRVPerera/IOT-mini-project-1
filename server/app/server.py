@@ -14,7 +14,7 @@ import asyncio
 from database import send_influxdb
 
 # Set up logging to a file
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', filename='/var/log/logfile.log')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 from database import send_influxdb
 
