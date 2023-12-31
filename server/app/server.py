@@ -12,12 +12,24 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 
 from database import send_influxdb
 
+MAX_DATA_POINTS = 100
+INDEX=0
+data_values = [0]*MAX_DATA_POINTS
+
 class temperature(resource.Resource):
     async def render_post(self, request):
+        global data_values
         try:
             if request.code.is_request() and request.code == POST:
                 payload = request.payload.decode('utf8')
-                send_influxdb(float(payload)/100.0)
+                value = float(payload)
+                data_values[INDEX] = value
+                INDEX = (INDEX+1)%MAX_DATA_POINTS
+
+                sum = sum(data_values)
+                avg = sum/MAX_DATA_POINTS
+
+                send_influxdb(float(avg)/100.0)
                 logging.debug(f"Data received and sent to InfluxDB: {payload}")
                 return Message(code=CONTENT, payload=b'Data added to InfluxDB')
             

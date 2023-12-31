@@ -18,4 +18,4 @@ cd ..
 # run the system
 #ping 2001:4860:4860::8888
 # ping 2600:1f16:15a8:3b2:804b:8136:56a6:cb5b
-./start.sh
+#./start.sh

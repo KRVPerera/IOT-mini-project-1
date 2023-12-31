@@ -2,7 +2,7 @@
 
 # schdeule two m3 nodes
 # got help from discord channel for the subject
-RES=$(iotlab-experiment submit -n project-1 -d 5 -l 2,archi=m3:at86rf231+site=grenoble)
+RES=$(iotlab-experiment submit -n project-2 -d 480 -l 2,archi=m3:at86rf231+site=grenoble)
 ID=$(echo $RES | jq '.id')
 
 # wait for nodes to start
