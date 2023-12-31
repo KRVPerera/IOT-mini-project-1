@@ -11,6 +11,9 @@ import aiocoap
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 from database import send_influxdb
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 MAX_DATA_POINTS = 100
 INDEX=0
@@ -25,12 +28,14 @@ class temperature(resource.Resource):
             if request.code.is_request() and request.code == POST:
                 payload = request.payload.decode('utf8')
                 value = float(payload)
+                logging.debug(f"Value received: {value}")
                 data_values[INDEX] = value
                 INDEX = (INDEX+1)%MAX_DATA_POINTS
 
                 sum_value = sum(data_values)
+                logging.debug(f"Sum: {sum_value}")
                 avg = sum_value*1.0/MAX_DATA_POINTS
-
+                logging.debug(f"Avg: {avg}")
                 send_influxdb(avg/100.0)
                 logging.debug(f"Data received and sent to InfluxDB: {payload}")
                 return Message(code=CONTENT, payload=b'Data added to InfluxDB')
