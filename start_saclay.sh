@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# schdeule two m3 nodes
+# got help from discord channel for the subject
+RES=$(iotlab-experiment submit -n project-2 -d 480 -l 2,archi=m3:at86rf231+site=saclay)
+ID=$(echo $RES | jq '.id')
+
+# wait for nodes to start
+iotlab-experiment wait --timeout 120 --cancel-on-timeout -i "${ID}" --state Running
+RES=$(iotlab-experiment get -i ${ID} -p)
+declare -a mynodes
+for (( i=0; i<2; i++ )); do
+    node=$(echo "$RES" | jq -r ".nodes[$i]")
+    number=$(echo "$node" | cut -d'-' -f2 | cut -d'.' -f1)
+    mynodes+=( "$number" )
+done
+
+
+echo "Array Contents: ${mynodes[*]}"
+
+iotlab-node --flash gnrc_border_router.elf -l "saclay,m3,${mynodes[0]}" -i "${ID}"
+iotlab-node --flash firmware/sensor_saclay.elf -l "saclay,m3,${mynodes[1]}" -i "${ID}"
+
+echo "nc m3-2 20000"
+sudo ethos_uhcpd.py m3-${mynodes[0]} tap9 2001:660:3207:04c9::1/64
+echo "Script ended."
+iotlab-experiment stop -i ${ID}
