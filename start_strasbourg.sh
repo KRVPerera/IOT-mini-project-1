@@ -17,5 +17,6 @@ done
 
 iotlab-node --flash gnrc_border_router.elf -l "strasbourg,m3,${mynodes[1]}" -i "${ID}"
 iotlab-node --flash firmware/sensor_strasbourg.elf -l "strasbourg,m3,${mynodes[2]}" -i "${ID}"
+sleep 30
 sudo ethos_uhcpd.py m3-${mynodes[0]} tap9 2a07:2e40:fffe:00e9::1/64
 iotlab-experiment stop -i ${ID}
