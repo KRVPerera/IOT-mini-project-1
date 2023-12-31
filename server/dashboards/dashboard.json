@@ -228,6 +228,11 @@
               "key": "place::tag",
               "operator": "=",
               "value": "testbed_sensor1"
+            },
+            {
+              "key": "sensor::tag",
+              "operator": "=",
+              "value": "grenoble"
             }
           ]
         }
