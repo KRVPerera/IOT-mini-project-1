@@ -9,4 +9,4 @@ RUN pip3 install --upgrade cython && \
 
 EXPOSE 5683
 
-CMD ["python", "server.py"]
+CMD ["python", "-u", "server.py"]
