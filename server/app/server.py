@@ -19,6 +19,8 @@ data_values = [0]*MAX_DATA_POINTS
 class temperature(resource.Resource):
     async def render_post(self, request):
         global data_values
+        global INDEX
+        global MAX_DATA_POINTS
         try:
             if request.code.is_request() and request.code == POST:
                 payload = request.payload.decode('utf8')
@@ -26,10 +28,10 @@ class temperature(resource.Resource):
                 data_values[INDEX] = value
                 INDEX = (INDEX+1)%MAX_DATA_POINTS
 
-                sum = sum(data_values)
-                avg = sum/MAX_DATA_POINTS
+                sum_value = sum(data_values)
+                avg = sum_value*1.0/MAX_DATA_POINTS
 
-                send_influxdb(float(avg)/100.0)
+                send_influxdb(avg/100.0)
                 logging.debug(f"Data received and sent to InfluxDB: {payload}")
                 return Message(code=CONTENT, payload=b'Data added to InfluxDB')
             
