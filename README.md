@@ -43,7 +43,7 @@
 
 ### Testbed
 - Get ssh access to frontend
-- login to grenoble site
+- login to grenoble site first
 - clone the repository
 - cd into repository folder
 - In the `sensor\main.c` add your EC2 instance public IPv6 addrss
@@ -51,8 +51,10 @@
     eg:
         `coap_command[i++] = "2600:1234:1234:1234:1234:1234:1234:1234";`
 - Then run `all.sh`
-    - This builds the sensor code with new ip address
-    - Star the border router (already built)
+    - This builds three sensor code with new ip address
+    - `firmware/sensor_grenoble.elf`
+    - `firmware/sensor_saclay.sh`
+    - `firmware/sensor_strasbourg.sh`
 
 - After building one time you can run
     `start.sh`
