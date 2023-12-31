@@ -43,6 +43,8 @@
 
 ### Testbed
 - Get ssh access to frontend
+                          
+#### Grenoble
 - login to grenoble site first
 - clone the repository
 - cd into repository folder
@@ -50,11 +52,14 @@
     `coap_command[i++] = "mention_your_ipv6_here";`
     eg:
         `coap_command[i++] = "2600:1234:1234:1234:1234:1234:1234:1234";`
-- Then run `all.sh`
-    - This builds three sensor code with new ip address
+- Then run `all_grenoble.sh`
+- This builds three sensor code with new ip address
     - `firmware/sensor_grenoble.elf`
-    - `firmware/sensor_saclay.sh`
-    - `firmware/sensor_strasbourg.sh`
-
 - After building one time you can run
-    `start.sh`
+    `start_grenoble.sh`
+
+#### Strabourg
+- Repeat as same as Grenoble but change the scripts to `all_strasbourg.sh` and `start_strasbourg.sh`
+
+#### Saclay
+- Repeat as same as Grenoble but change the scripts to `all_saclay.sh` and `start_saclay.sh`

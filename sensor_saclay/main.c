@@ -103,7 +103,7 @@ int main(void)
       printf("Value: %s\n", temp_str);
       gcoap_cli_cmd(coap_command_c, coap_command);
     }
-    ztimer_sleep(ZTIMER_MSEC, 200);
+    ztimer_sleep(ZTIMER_MSEC, 300);
   }
 
   return 0;
